@@ -25,7 +25,7 @@ class Nostalgia(IPlugin):
     async def set_nameglow(self, p, color: str):
         color = str(int(color.lstrip('#'), 16))
         await p.set_custom_attribute('nameglow', color)
-        await p.room.send_xt('ng', p.id, color)
+        await p.room.send_xt('upng', p.id, color)
         await p.send_xt('mm', 'Nameglow updated', p.id)
 
     @handlers.handler(XTPacket('h', 'ng'))
@@ -33,4 +33,4 @@ class Nostalgia(IPlugin):
     async def handle_set_nameglow(self, p, color: str):
         color = str(int(color, 16))
         await p.set_custom_attribute('nameglow', color)
-        await p.room.send_xt('ng', p.id, color)
+        await p.room.send_xt('upng', p.id, color)
