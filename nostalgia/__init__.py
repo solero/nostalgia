@@ -13,8 +13,9 @@ class Nostalgia(IPlugin):
 
     def __init__(self, server):
         super().__init__(server)
-
-        self.server.penguin_string_compiler['Nameglow'] = PenguinStringCompiler.custom_attribute_by_name('nameglow')
+        
+        if self.server.config.type == 'world':
+            self.server.penguin_string_compiler['Nameglow'] = PenguinStringCompiler.custom_attribute_by_name('nameglow')
 
     async def ready(self):
         await self.server.permissions.register('nostalgia.nameglow')
