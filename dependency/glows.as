@@ -742,7 +742,7 @@ SHELL.makePlayerObjectFromString = function(player_string)
 	_local1.bubblecolor = _local2[23] || 0;
 	_local1.bubbletext = _local2[24] || 0;
 	_local1.ringcolor = _local2[25];
-	_local1.obese = Number(_local2[26]) || 0;
+	_local1.obese = _local2[26];
 	_local1.transparency = _local2[27];
 	_local1.rotation = Number(_local2[28]) || 0;
 	_local1.walls = Boolean(Number(_local2[29]) || 0);
@@ -826,9 +826,11 @@ ENGINE.updatePlayerRingcolor = function(player_id, player_ob)
 
 ENGINE.updatePlayerSize = function(player_id, player_ob)
 {
-	var _loc1_ = ENGINE.getPlayerMovieClip(player_id);
-	new Tween(_loc1_, "_xscale", Regular.easeOut, _loc1_._xscale, int(player_ob.obese), 1, true);
-	new Tween(_loc1_, "_yscale", Regular.easeOut, _loc1_._yscale, int(player_ob.obese), 1, true);
+	if(player_ob.obese !== ''){
+		var _loc1_ = ENGINE.getPlayerMovieClip(player_id);
+		new Tween(_loc1_, "_xscale", Regular.easeOut, _loc1_._xscale, int(player_ob.obese), 1, true);
+		new Tween(_loc1_, "_yscale", Regular.easeOut, _loc1_._yscale, int(player_ob.obese), 1, true);
+	}
 };
 
 ENGINE.updatePlayerTransparency = function(player_id, player_ob)
