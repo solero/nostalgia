@@ -3,9 +3,9 @@
 
 ## Setup
 
-- Place the dependencies file (glows.swf) in your media-server `/media/play/v2/client`.
+- Place the dependencies file (glows.swf) in your media-server `/legacy-media/play/v2/client`.
 
-- Add an entry in `/media/play/v2/client/dependencies.json` for the dependency as shown:
+- Add an entry in `/legacy-media/play/v2/client/dependencies.json` for the dependency as shown:
 
 ```
 {
