@@ -372,13 +372,13 @@ SHELL.makePlayerObjectFromString = function(raw_string)
 	penguin_obj.bubbletext = player_string[24+offset] || 0;
 	penguin_obj.ringcolor = player_string[25+offset];
 	penguin_obj.obese = player_string[26+offset];
-	penguin_obj.transparency = player_string[27];
-	penguin_obj.rotation = Number(player_string[28]) || 0;
-	penguin_obj.walls = Boolean(Number(player_string[29]) || 0);
-	penguin_obj.speed = Number(player_string[30]) || 0;
-	penguin_obj.mood = player_string[31];
-	penguin_obj.moodcolor = player_string[32] || 0;
-	penguin_obj.snowball = Number(player_string[33]) || 0;
+	penguin_obj.transparency = player_string[27+offset];
+	penguin_obj.rotation = Number(player_string[28+offset]) || 0;
+	penguin_obj.walls = Boolean(Number(player_string[29+offset]) || 0);
+	penguin_obj.speed = Number(player_string[30+offset]) || 0;
+	penguin_obj.mood = player_string[31+offset];
+	penguin_obj.moodcolor = player_string[32+offset] || 0;
+	penguin_obj.snowball = Number(player_string[33+offset]) || 0;
     var __reg4 = Number(player_string[20]);
     if (offset == 4) 
     {
