@@ -5,10 +5,6 @@ var AIRTOWER = _global.getCurrentAirtower();
 import mx.transitions.Tween;
 import mx.transitions.easing.*;
 var SPLIT_CHAR = "|";
-function log(message)
-{
-   flash.external.ExternalInterface.call("console.log","[NEWCP]",message);
-}
 
 SHELL.sendUpdatePlayerNameglow = function(color)
 {
