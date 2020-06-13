@@ -48,10 +48,13 @@ class Nostalgia(IPlugin):
     @commands.command('nameglow', alias=['ng'])
     @permissions.has_or_moderator('nostalgia.nameglow')
     async def set_nameglow(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('nameglow', color)
-        await p.room.send_xt('upng', p.id, color)
-        await p.send_xt('mm', 'Nameglow updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('nameglow', color)
+            await p.room.send_xt('upng', p.id, color)
+            await p.send_xt('mm', 'Nameglow updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @commands.command('namecolor', alias=['nc'])
     @permissions.has_or_moderator('nostalgia.namecolor')
@@ -60,18 +63,24 @@ class Nostalgia(IPlugin):
             await p.set_custom_attribute('namecolor', color)
             await p.room.send_xt('upnc', p.id, color)
             return await p.join_room(p.room)
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('namecolor', color)
-        await p.room.send_xt('upnc', p.id, color)
-        await p.send_xt('mm', 'Namecolor updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('namecolor', color)
+            await p.room.send_xt('upnc', p.id, color)
+            await p.send_xt('mm', 'Namecolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @commands.command('bubblecolor', alias=['bc'])
     @permissions.has_or_moderator('nostalgia.bubblecolor')
     async def set_bubblecolor(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('bubblecolor', color)
-        await p.room.send_xt('upbc', p.id, color)
-        await p.send_xt('mm', 'Bubblecolor updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('bubblecolor', color)
+            await p.room.send_xt('upbc', p.id, color)
+            await p.send_xt('mm', 'Bubblecolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @commands.command('bubbletext', alias=['bt'])
     @permissions.has_or_moderator('nostalgia.bubbletext')
@@ -80,19 +89,25 @@ class Nostalgia(IPlugin):
             await p.set_custom_attribute('bubbletext', color)
             await p.room.send_xt('upbt', p.id, color)
             return await p.join_room(p.room)
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('bubbletext', color)
-        await p.room.send_xt('upbt', p.id, color)
-        await p.send_xt('mm', 'Bubbletext updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('bubbletext', color)
+            await p.room.send_xt('upbt', p.id, color)
+            await p.send_xt('mm', 'Bubbletext updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @commands.command('ringcolor', alias=['rc'])
     @permissions.has_or_moderator('nostalgia.ringcolor')
     async def set_ringcolor(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('ringcolor', color)
-        await p.room.send_xt('uprc', p.id, color)
-        await p.send_xt('mm', 'Ringcolor updated', p.id)
-    
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('ringcolor', color)
+            await p.room.send_xt('uprc', p.id, color)
+            await p.send_xt('mm', 'Ringcolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
+
     @commands.command('size', alias=['si'])
     @permissions.has_or_moderator('nostalgia.size')
     async def set_size(self, p, size: str):
@@ -109,7 +124,7 @@ class Nostalgia(IPlugin):
             await p.set_custom_attribute('transparency', transparency)
             await p.room.send_xt('upal', p.id, transparency)
             await p.send_xt('mm', 'Transparency updated', p.id)
-    
+
     @commands.command('rotation', alias=['ro'])
     @permissions.has_or_moderator('nostalgia.rotation')
     async def set_rotation(self, p, rotation: str):
@@ -118,7 +133,7 @@ class Nostalgia(IPlugin):
             await p.room.send_xt('uprt', p.id, rotation)
             await p.send_xt('mm', 'Rotation updated', p.id)
 
-    @commands.command('wow', alias=['wow'])
+    @commands.command('wow', alias=['walls'])
     @permissions.has_or_moderator('nostalgia.walls')
     async def set_wow(self, p):
         wow_value = 0 if int(p.get_custom_attribute('walls')) is 1 else 1
@@ -129,7 +144,7 @@ class Nostalgia(IPlugin):
     @commands.command('speed', alias=['sp'])
     @permissions.has_or_moderator('nostalgia.speed')
     async def set_speed(self, p, speed: str):
-        if '|' not in speed and int(speed) in range(1,500):
+        if '|' not in speed and int(speed) in range(1, 500):
             await p.set_custom_attribute('speed', speed)
             await p.room.send_xt('upsp', p.id, speed)
             return await p.send_xt('mm', 'Speed updated.', p.id)
@@ -146,25 +161,35 @@ class Nostalgia(IPlugin):
     @commands.command('moodcolor', alias=['mc'])
     @permissions.has_or_moderator('nostalgia.moodcolor')
     async def set_moodcolor(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('moodcolor', color)
-        await p.room.send_xt('upmc', p.id, color)
-        await p.send_xt('mm', 'Moodcolor updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('moodcolor', color)
+            await p.room.send_xt('upmc', p.id, color)
+            await p.send_xt('mm', 'Moodcolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @commands.command('snowball', alias=['sb'])
     @permissions.has_or_moderator('nostalgia.snowball')
     async def set_snowball(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('snowball', color)
-        await p.room.send_xt('upsb', p.id, color)
-        await p.send_xt('mm', 'Snowball colour updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('snowball', color)
+            await p.room.send_xt('upsb', p.id, color)
+            await p.send_xt('mm', 'Snowball colour updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'ng'))
     @permissions.has_or_moderator('nostalgia.nameglow')
     async def handle_set_nameglow(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('nameglow', color)
-        await p.room.send_xt('upng', p.id, color)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('nameglow', color)
+            await p.room.send_xt('upng', p.id, color)
+            await p.send_xt('mm', 'Nameglow updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'nc'))
     @permissions.has_or_moderator('nostalgia.namecolor')
@@ -173,17 +198,24 @@ class Nostalgia(IPlugin):
             await p.set_custom_attribute('namecolor', color)
             await p.room.send_xt('upnc', p.id, color)
             return await p.join_room(p.room)
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('namecolor', color)
-        await p.room.send_xt('upnc', p.id, color)
-        await p.send_xt('mm', 'Namecolor updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('namecolor', color)
+            await p.room.send_xt('upnc', p.id, color)
+            await p.send_xt('mm', 'Namecolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'bc'))
     @permissions.has_or_moderator('nostalgia.bubblecolor')
     async def handle_set_bubblecolor(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('bubblecolor', color)
-        await p.room.send_xt('upbc', p.id, color)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('bubblecolor', color)
+            await p.room.send_xt('upbc', p.id, color)
+            await p.send_xt('mm', 'Bubblecolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'bt'))
     @permissions.has_or_moderator('nostalgia.bubbletext')
@@ -192,17 +224,24 @@ class Nostalgia(IPlugin):
             await p.set_custom_attribute('bubbletext', color)
             await p.room.send_xt('upbt', p.id, color)
             return await p.join_room(p.room)
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('bubbletext', color)
-        await p.room.send_xt('upbt', p.id, color)
-        await p.send_xt('mm', 'Bubbletext updated', p.id)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('bubbletext', color)
+            await p.room.send_xt('upbt', p.id, color)
+            await p.send_xt('mm', 'Bubbletext updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'rc'))
     @permissions.has_or_moderator('nostalgia.ringcolor')
     async def handle_set_ringcolor(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('ringcolor', color)
-        await p.room.send_xt('uprc', p.id, color)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('ringcolor', color)
+            await p.room.send_xt('uprc', p.id, color)
+            await p.send_xt('mm', 'Ringcolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'size'))
     @permissions.has_or_moderator('nostalgia.size')
@@ -251,13 +290,22 @@ class Nostalgia(IPlugin):
     @handlers.handler(XTPacket('h', 'mc'))
     @permissions.has_or_moderator('nostalgia.moodcolor')
     async def handle_set_moodcolor(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('moodcolor', color)
-        await p.room.send_xt('upmc', p.id, color)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('moodcolor', color)
+            await p.room.send_xt('upmc', p.id, color)
+            await p.send_xt('mm', 'Moodcolor updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
 
     @handlers.handler(XTPacket('h', 'sb'))
     @permissions.has_or_moderator('nostalgia.snowball')
     async def handle_set_snowball(self, p, color: str):
-        color = str(int(color.lstrip('#'), 16))
-        await p.set_custom_attribute('snowball', color)
-        await p.room.send_xt('upsb', p.id, color)
+        try:
+            color = str(int(color.lstrip('#'), 16))
+            await p.set_custom_attribute('snowball', color)
+            await p.room.send_xt('upsb', p.id, color)
+            await p.send_xt('mm', 'Snowball colour updated', p.id)
+        except ValueError:
+            await p.send_xt('mm', 'You must enter a valid hexcode.', p.id)
+
