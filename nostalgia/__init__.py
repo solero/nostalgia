@@ -151,9 +151,9 @@ class Nostalgia(IPlugin):
         await p.send_xt('mm', 'Your speed value must a number between 1 and 500.', p.id)
 
     @commands.command('mood', alias=['m'])
-    @permissions.has_or_moderator('nostalgia.mood')
-    async def set_mood(self, p, mood: str):
+    async def set_mood(self, p, *mood: str):
         if '|' not in mood:
+            mood = ' '.join([i for i in mood])
             await p.set_custom_attribute('mood', mood)
             await p.room.send_xt('upmd', p.id, mood)
             await p.join_room(p.room)
